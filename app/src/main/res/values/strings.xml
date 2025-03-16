@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">BooNet</string>
+
+    <!-- SplashScreen -->
+    <string name="Welcome_To_BooNet">Добро пожаловать в BooNet</string>
+
+    <!-- Registration -->
+    <string name="Enter_Email">Введите Email</string>
+    <string name="Enter_User_Name">Введите имя пользователя</string>
+    <string name="Create_Password">Придумайте пароль</string>
+    <string name="Repeat_Password">Повторите пароль</string>
+    <string name="Register">Зарегистрироваться</string>
+    <string name="I_Have_Account">У меня есть аккаунт</string>
+
+    <!-- Login -->
+    <string name="Enter_Password">Введите пароль</string>
+    <string name="Forget_Password">Забыл пароль</string>
+    <string name="Login">Войти</string>
+    <string name="Dont_Have_Account">Нет аккаунта</string>
+
+
+    <!-- More -->
+    <string name="Author">by Luka</string>
+</resources>
