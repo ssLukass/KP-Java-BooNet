@@ -36,6 +36,10 @@
     <string name="Search">Поиск</string>
     <string name="Profile">Профиль</string>
 
+    <!-- DetailsBook -->
+    <string name="Price">Подписка</string>
+    <string name="Name_Book">Название книги</string>
+    <string name="Description_Book">Описание книги</string>
 
 
     <!-- More -->
