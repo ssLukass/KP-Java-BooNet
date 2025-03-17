@@ -13,6 +13,12 @@
         android:theme="@style/Theme.BooNet"
         tools:targetApi="31">
         <activity
+            android:name=".AddCard.AddCard"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPassword.ForgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".Login.Login"
             android:exported="false" />
         <activity

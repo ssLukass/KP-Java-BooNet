@@ -18,6 +18,25 @@
     <string name="Login">Войти</string>
     <string name="Dont_Have_Account">Нет аккаунта</string>
 
+    <!-- ForgotPassword -->
+    <string name="Password_Recovery">Востановление пароля</string>
+    <string name="Send_Email">Восстановить пароль</string>
+    <string name="Back">Войти в аккаунт</string>
+
+
+    <!-- AddCard-->
+    <string name="Number_Card">Номер карты</string>
+    <string name="Card_Owner">Владелец карты</string>
+    <string name="Data">MM/YY</string>
+    <string name="CVV">CVV</string>
+    <string name="Add">Добавить</string>
+
+    <!-- btn_navigation_menu -->
+    <string name="Main">Главная</string>
+    <string name="Search">Поиск</string>
+    <string name="Profile">Профиль</string>
+
+
 
     <!-- More -->
     <string name="Author">by Luka</string>
