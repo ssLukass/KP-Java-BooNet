@@ -41,6 +41,13 @@
     <string name="Name_Book">Название книги</string>
     <string name="Description_Book">Описание книги</string>
 
+    <!-- Profile -->
+    <string name="Name">Имя пользователя</string>
+    <string name="Email">Почта пользователя</string>
+    <string name="Add_Card">Добавить карту</string>
+    <string name="Status_Subscribe">Состояние подписки</string>
+    <string name="Exit">Выйти из аккаунта</string>
+
 
     <!-- More -->
     <string name="Author">by Luka</string>
