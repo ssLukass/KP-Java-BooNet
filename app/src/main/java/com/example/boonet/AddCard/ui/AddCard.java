@@ -1,4 +1,4 @@
-package com.example.boonet.AddCard;
+package com.example.boonet.AddCard.ui;
 
 import android.os.Bundle;
 

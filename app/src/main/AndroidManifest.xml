@@ -13,25 +13,25 @@
         android:theme="@style/Theme.BooNet"
         tools:targetApi="31">
         <activity
-            android:name=".Search.Search"
+            android:name=".Search.ui.Search"
             android:exported="false" />
         <activity
-            android:name=".DetailsBook.DetailsBook"
+            android:name=".DetailsBook.ui.DetailsBook"
             android:exported="false" />
         <activity
-            android:name=".AddCard.AddCard"
+            android:name=".AddCard.ui.AddCard"
             android:exported="false" />
         <activity
-            android:name=".ForgotPassword.ForgotPassword"
+            android:name=".ForgotPassword.ui.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".Login.Login"
+            android:name=".Login.ui.Login"
             android:exported="false" />
         <activity
-            android:name=".Registration.Registration"
+            android:name=".Registration.ui.Registration"
             android:exported="false" />
         <activity
-            android:name=".Screen.SplashScreen"
+            android:name=".Screen.ui.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
