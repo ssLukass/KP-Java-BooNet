@@ -19,7 +19,7 @@
     <string name="Dont_Have_Account">Нет аккаунта</string>
 
     <!-- ForgotPassword -->
-    <string name="Password_Recovery">Востановление пароля</string>
+    <string name="Password_Recovery">Восстановление пароля</string>
     <string name="Send_Email">Восстановить пароль</string>
     <string name="Back">Войти в аккаунт</string>
 
@@ -44,4 +44,6 @@
 
     <!-- More -->
     <string name="Author">by Luka</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
