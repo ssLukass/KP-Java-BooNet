@@ -10,11 +10,26 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.boonet.Login.ui.Login;
+import com.example.boonet.Login.ui.LoginActivity;
+import com.example.boonet.MainActivity;
 import com.example.boonet.R;
+import com.example.boonet.Registration.Model.UserType;
+import com.example.boonet.Registration.ui.RegistrationActivity;
+import com.example.boonet.core.Auth;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SplashScreen extends AppCompatActivity {
     private final int SPLASH_SCREEN_TIME = 2500;
+
+    private FirebaseDatabase db = FirebaseDatabase
+            .getInstance("https://boonet-74b71-default-rtdb.europe-west1.firebasedatabase.app/");
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    private boolean isUserAuthorized(){
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +45,25 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent myIntent = new Intent(SplashScreen.this, Login.class);
-                startActivity(myIntent);
-                finish();
+                if(isUserAuthorized()) {
+                    Auth.getDatabaseCurrentUser(user -> {
+                        if(user.getUserType() != UserType.ADMIN) {
+                            Intent intent = new Intent(
+                                    SplashScreen.this,
+                                    MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // TODO: сделать переход на другую активити для админа
+                        }
+                    });
+                } else {
+                    Intent intent = new Intent(
+                            SplashScreen.this,
+                            LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         },SPLASH_SCREEN_TIME);
 

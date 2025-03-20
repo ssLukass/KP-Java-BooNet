@@ -25,10 +25,10 @@
             android:name=".ForgotPassword.ui.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".Login.ui.Login"
+            android:name=".Login.ui.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Registration.ui.Registration"
+            android:name=".Registration.ui.RegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".Screen.ui.SplashScreen"

@@ -3,31 +3,35 @@ package com.example.boonet.Registration.Model;
 
 import org.jetbrains.annotations.NotNull;
 
-public class User implements Cloneable{
+public class User implements Cloneable {
     private String userName;
-    private String password;
     private String userEmail;
     private String key;
     private String UID;
     private String avatar;
-    private String userType = null;
+    private UserType userType = UserType.READER;
 
-    public User(String userName, String password, String userEmail, String key, String UID, String avatar, String userType){
+    public User(String userName, String userEmail, String key, String UID, String avatar, UserType userType) {
         this.userName = userName;
-        this.password = password;
         this.userEmail = userEmail;
-        this.key= key;
+        this.key = key;
         this.UID = UID;
         this.avatar = avatar;
         this.userType = userType;
     }
 
-    public User(String userName, String password){
+    public User(String userName) {
         this.userName = userName;
-        this.password = password;
     }
 
-    public User(){}
+    public User(String userName, String email, String UID) {
+        this.userName = userName;
+        this.userEmail = email;
+        this.UID = UID;
+    }
+
+    public User() {
+    }
 
     public String getUserName() {
         return userName;
@@ -35,14 +39,6 @@ public class User implements Cloneable{
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUserEmail() {
@@ -77,18 +73,18 @@ public class User implements Cloneable{
         this.avatar = avatar;
     }
 
-    public String getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
     @NotNull
     @Override
-    protected Object clone() throws CloneNotSupportedException{
+    protected Object clone() throws CloneNotSupportedException {
         super.clone();
-        return new User(this.userName, this.password);
+        return new User(this.userName);
     }
 }

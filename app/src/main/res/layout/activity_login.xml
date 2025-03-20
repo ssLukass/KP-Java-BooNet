@@ -49,7 +49,7 @@
             app:expandedHintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_input"
+                android:id="@+id/email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/icon_email"
