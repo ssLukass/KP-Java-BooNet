@@ -25,7 +25,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_product_image"
+                    android:id="@+id/iv_book_image"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="centerCrop"/>
@@ -38,7 +38,7 @@
                     android:background="@color/primary_KP">
 
                     <TextView
-                        android:id="@+id/tv_product_price"
+                        android:id="@+id/tv_book_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -50,7 +50,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Карточка с названием и описанием товара -->
+        <!-- Карточка с названием, автором и описанием -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,11 +64,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Название и автор -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:paddingBottom="8dp">
 
                     <ImageView
                         android:layout_width="35dp"
@@ -79,13 +81,23 @@
                         android:layout_marginTop="4dp"/>
 
                     <TextView
-                        android:id="@+id/tv_product_title"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_book_title"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:text="@string/Name_Book"
                         android:textColor="@android:color/black"/>
+
+                    <TextView
+                        android:id="@+id/tv_book_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textStyle="italic"
+                        android:text="@string/Author"
+                        android:textColor="@android:color/darker_gray"/>
                 </LinearLayout>
 
                 <View
@@ -95,7 +107,7 @@
                     android:layout_marginVertical="8dp"/>
 
                 <TextView
-                    android:id="@+id/tv_product_description"
+                    android:id="@+id/tv_book_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"

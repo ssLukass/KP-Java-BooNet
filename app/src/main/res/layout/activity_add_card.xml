@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Фоновое изображение -->
     <ImageView
         android:id="@+id/bgImage"
         android:layout_width="match_parent"
@@ -14,7 +13,6 @@
         android:src="@drawable/fon_card"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Контейнер для формы -->
     <LinearLayout
         android:id="@+id/cardContainer"
         android:layout_width="match_parent"
@@ -32,9 +30,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/Number_Card"
+            android:hint="Номер карты"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:counterMaxLength="19"
             app:startIconDrawable="@drawable/icon_card">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -42,15 +39,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="19"
-                android:digits="0123456789 "/>
+                android:maxLength="19"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Имя владельца карты -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/Card_Owner"
+            android:hint="Имя владельца"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="8dp"
             app:startIconDrawable="@drawable/icon_user">
@@ -59,7 +55,7 @@
                 android:id="@+id/cardHolderEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
+                android:inputType="textCapCharacters"
                 android:maxLength="30"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/Data"
+                android:hint="MM/YY"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:startIconDrawable="@drawable/icon_calendar">
 
@@ -83,8 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:maxLength="5"
-                    android:digits="0123456789/"/>
+                    android:maxLength="5"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <View
@@ -95,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/CVV"
+                android:hint="CVV"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -103,23 +98,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberPassword"
-                    android:maxLength="3"
-                    android:digits="0123456789"/>
+                    android:maxLength="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <!-- Кнопка "Оплатить" -->
+        <!-- Кнопки -->
         <Button
             android:id="@+id/payButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Add"
+            android:text="Добавить карту"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/primary_KP"/>
 
+        <Button
+            android:id="@+id/unlinkCardButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Отвязать карту"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

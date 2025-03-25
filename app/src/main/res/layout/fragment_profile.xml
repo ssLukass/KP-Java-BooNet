@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/textview_userEmail" />
 
     <TextView
-        android:id="@+id/textview_favorites"
+        android:id="@+id/add_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -60,14 +60,14 @@
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <TextView
-        android:id="@+id/textview_ads"
+        android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/Status_Subscribe"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_favorites" />
+        app:layout_constraintTop_toBottomOf="@id/add_card" />
 
     <Button
         android:id="@+id/button_exit"
