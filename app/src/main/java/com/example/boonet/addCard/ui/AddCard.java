@@ -41,10 +41,7 @@ public class AddCard extends AppCompatActivity {
 
        payButton.setOnClickListener(v -> saveCardData());
         unlinkCardButton.setOnClickListener(v -> clearCardData());
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("card_added", true);
-        setResult(Activity.RESULT_OK, resultIntent);
-        finish();
+
 
     }
 

@@ -106,7 +106,7 @@ public class ProfileFragment extends Fragment {
             Log.d("ProfileFragment", "tvAddCard нажата!");
 
             Intent intent = new Intent(requireContext(), AddCard.class);
-            requireActivity().startActivity(intent);
+            startActivity(intent);
 
             Log.d("ProfileFragment", "startActivity вызван!");
         });
