@@ -35,6 +35,7 @@ import com.example.boonet.login.ui.LoginActivity;
 import com.example.boonet.R;
 import com.example.boonet.core.interfaces.OnDataUserReceivedCallback;
 import com.example.boonet.registration.entities.User;
+import com.example.boonet.subscribe.ui.SubscribeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -75,7 +76,7 @@ public class ProfileFragment extends Fragment {
                                         @Override
                                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                             ivAvatar.setImageBitmap(resource);
-                                            uploadImage(resource);
+                                          //  uploadImage(resource);
                                         }
 
                                         @Override
@@ -114,7 +115,7 @@ public class ProfileFragment extends Fragment {
 
 
         tvStatus.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), MainActivity.class);
+            Intent intent = new Intent(requireContext(), SubscribeActivity.class);
             startActivity(intent);
         });
 
@@ -133,12 +134,12 @@ public class ProfileFragment extends Fragment {
 
 
 
-    private void uploadImage(Bitmap bitmap) {
+   /* private void uploadImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
 
-        StorageReference profileImages = storage.getReference("avatars");
+       StorageReference profileImages = storage.getReference("avatars");
         StorageReference currentImage = profileImages.child(System.currentTimeMillis() + "");
         UploadTask uploadTask = currentImage.putBytes(bytes);
 
@@ -149,7 +150,7 @@ public class ProfileFragment extends Fragment {
                         updateUserInFireBase(myUser);
                     }
                 });
-    }
+    }*/
 
     private void logoutUser() {
 

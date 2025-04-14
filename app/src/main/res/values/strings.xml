@@ -50,7 +50,7 @@
 
 
     <!-- More -->
-    <string name="Author">by Luka</string>
+    <string name="Author">Автор</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

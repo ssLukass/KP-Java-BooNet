@@ -40,20 +40,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductVie
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Book book = bookList.get(position);
         holder.tvTitle.setText(book.getTitle());
-        holder.tvPrice.setText(String.format("%s ₸", book.getPrice())); // Format the price with the currency symbol
+
+        // Проверяем подписку
+        if (book.isSubscription()) {
+            holder.tvPrice.setText("Доступен по подписке");
+        } else {
+            holder.tvPrice.setText("Бесплатно");
+        }
+
         if (book.getImage() != null && !book.getImage().isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(book.getImage())
                     .into(holder.ivProductImage);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.no_image)
+                    .into(holder.ivProductImage);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickCallback.onClick(book);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> clickCallback.onClick(book));
     }
+
 
     @Override
     public int getItemCount() {

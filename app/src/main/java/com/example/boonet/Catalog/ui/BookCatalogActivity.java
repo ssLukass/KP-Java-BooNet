@@ -1,11 +1,12 @@
-package com.example.boonet.home.ui;
+package com.example.boonet.Catalog.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.example.boonet.R;
 import com.example.boonet.core.entities.Book;
 import com.example.boonet.core.utils.Utils;
+import com.example.boonet.detailsBook.ui.DetailsBookActivity;
 import com.example.boonet.home.adapters.BookAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,26 +25,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class BookCatalogActivity extends AppCompatActivity {
     private RecyclerView rvBooks;
     private BookAdapter adapter;
     private FirebaseDatabase db;
     private DatabaseReference books;
 
-    public HomeFragment() {
-        super(R.layout.fragment_home);  // Указываем layout для фрагмента
-    }
-
     @Override
-    public void onViewCreated(@NonNull android.view.View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_book_catalog);
 
         // Инициализация Firebase
         db = FirebaseDatabase.getInstance("https://boonet-74b71-default-rtdb.europe-west1.firebasedatabase.app/");
         books = db.getReference("books");
 
         // Инициализация RecyclerView
-        rvBooks = view.findViewById(R.id.recyclerView);
+        rvBooks = findViewById(R.id.recyclerView);
         rvBooks.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
 
         // Загружаем книги из Firebase
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment {
                     Book book = ds.getValue(Book.class);
                     if (book != null) {
                         book.setKey(ds.getKey()); // Устанавливаем ключ книги
-                        if (book.getImage() != null) {
+                        if (book.getImage() != null && !book.getImage().isEmpty()) {
                             // Декодируем изображение из Base64 в Bitmap
                             Bitmap bitmap = Utils.decodeBase64ToImage(book.getImage());
                             // Конвертируем обратно в Base64 после обработки, если необходимо
@@ -73,16 +72,13 @@ public class HomeFragment extends Fragment {
                 Log.d("HomeFragment", "Получены книги: " + bookList.size());
 
                 // Проверяем, что список не пустой
-                if (bookList.isEmpty()) {
-                    Log.d("HomeFragment", "Нет данных для отображения.");
-                } else {
-                    // Создаем адаптер и передаем список книг и слушатель кликов
+                if (!bookList.isEmpty()) {
                     adapter = new BookAdapter(bookList, book -> {
                         // Ваш код для обработки клика по книге
                     });
-
-                    // Устанавливаем адаптер в RecyclerView
-                    rvBooks.setAdapter(adapter);
+                    rvBooks.setAdapter(adapter);  // Устанавливаем адаптер в RecyclerView
+                } else {
+                    Log.d("HomeFragment", "Список книг пуст");
                 }
             }
 

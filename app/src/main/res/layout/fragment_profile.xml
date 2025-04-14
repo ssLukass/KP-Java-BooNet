@@ -10,7 +10,7 @@
         android:id="@+id/imageview_profile"
         android:layout_width="200sp"
         android:layout_height="200sp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="45dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"

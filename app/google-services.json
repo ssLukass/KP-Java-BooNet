@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1065817256089",
+    "project_id": "boonet-74b71",
+    "storage_bucket": "boonet-74b71.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065817256089:android:57494398723e53cc1dc808",
+        "android_client_info": {
+          "package_name": "com.example.boonet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0UikNldrC6RYIkyupbWZcf5RY1Z6IIoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

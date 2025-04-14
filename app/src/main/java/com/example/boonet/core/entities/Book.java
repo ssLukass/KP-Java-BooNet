@@ -1,19 +1,37 @@
 package com.example.boonet.core.entities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import androidx.annotation.NonNull;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Book implements Serializable, Cloneable {
-    private String image;
+    private String image;  // Изображение в формате Base64
     private String title;
     private String description;
     private String key;
     private String ownerUID;
-    private int price;
+    private boolean subscription;
     private long creationDate;
     private String author;
+
+    public Book() {}
+
+    public Book(String image, String title, String description, String key, String ownerUID, boolean subscription, long creationDate, String author) {
+        this.image = image;
+        this.title = title;
+        this.description = description;
+        this.key = key;
+        this.ownerUID = ownerUID;
+        this.subscription = subscription;
+        this.creationDate = creationDate;
+        this.author = author;
+    }
 
     public String getImage() {
         return image;
@@ -55,12 +73,12 @@ public class Book implements Serializable, Cloneable {
         this.ownerUID = ownerUID;
     }
 
-    public int getPrice() {
-        return price;
+    public boolean isSubscription() {
+        return subscription;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setSubscription(boolean subscription) {
+        this.subscription = subscription;
     }
 
     public long getCreationDate() {
@@ -79,19 +97,6 @@ public class Book implements Serializable, Cloneable {
         this.author = author;
     }
 
-    public Book() {}
-
-    public Book(String image, String title, String description, String key, String ownerUID, int price, long creationDate, String author) {
-        this.image = image;
-        this.title = title;
-        this.description = description;
-        this.key = key;
-        this.ownerUID = ownerUID;
-        this.price = price;
-        this.creationDate = creationDate;
-        this.author = author;
-    }
-
 
 
     @Override
@@ -107,20 +112,10 @@ public class Book implements Serializable, Cloneable {
         return Objects.hash(key);
     }
 
-
     @NonNull
     @Override
     protected Object clone() throws CloneNotSupportedException {
         super.clone();
-
-        return new Book(this.image,
-                this.title,
-                this.description,
-                this.key,
-                this.ownerUID,
-                this.price,
-                this.creationDate,
-                this.author
-        );
+        return new Book(this.image, this.title, this.description, this.key, this.ownerUID, this.subscription, this.creationDate, this.author);
     }
 }

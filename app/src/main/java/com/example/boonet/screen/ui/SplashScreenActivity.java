@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.boonet.admin.ui.AdminMenuActivity;
 import com.example.boonet.login.ui.LoginActivity;
 import com.example.boonet.MainActivity;
 import com.example.boonet.R;
@@ -82,7 +83,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void startAdminActivity() {
         if (isFinishing()) return;
         Log.d(TAG, "Admin detected. TODO: переход на админскую активность.");
-        // TODO: Заменить на реальную активити админа
+        Intent intent = new Intent(SplashScreenActivity.this, AdminMenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void startLoginActivity() {

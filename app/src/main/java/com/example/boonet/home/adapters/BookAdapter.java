@@ -1,8 +1,8 @@
 package com.example.boonet.home.adapters;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.TextUtils;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,79 +12,79 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.boonet.R;
-import com.example.boonet.home.interfaces.BookClickCallback;
 import com.example.boonet.core.entities.Book;
+import com.example.boonet.core.utils.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
+    private List<Book> bookList;
+    private final OnBookClickListener bookClickListener;
 
-    private BookClickCallback callback;
-
-    private ArrayList<Book> books = new ArrayList<>();
-
-
-    public BookAdapter(BookClickCallback callback) {
-        this.callback = callback;
+    public BookAdapter(List<Book> bookList, OnBookClickListener bookClickListener) {
+        this.bookList = bookList;
+        this.bookClickListener = bookClickListener;
     }
-
-    public class BookViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        ImageView image;
-        TextView price;
-
-
-        BookViewHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.tv_book_title);
-            image = itemView.findViewById(R.id.iv_book_image);
-            price = itemView.findViewById(R.id.tv_book_price);
-        }
-    }
-
-    public void setList(ArrayList<Book> products) {
-        this.books = products;
-        notifyDataSetChanged();
-    }
-
 
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.book_item,
-                parent,
-                false);
-        return new BookViewHolder(itemView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_item, parent, false);
+        return new BookViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book book = books.get(position);
-        holder.title.setText(book.getTitle());
-        holder.price.setText(book.getPrice() + " ₸");
-        if (TextUtils.isEmpty(book.getImage())) {
-            Glide.with(holder.itemView.getContext()).load(R.drawable.no_image).into(holder.image);
+        Book book = bookList.get(position);
+
+        // Проверка наличия изображения у книги
+        if (book != null) {
+            holder.tvTitle.setText(book.getTitle());
+            holder.tvAuthor.setText(book.getAuthor());
+
+            // Проверка на null или пустое изображение
+            if (book.getImage() != null && !book.getImage().isEmpty()) {
+                Bitmap image = Utils.decodeBase64ToImage(book.getImage());
+                // Здесь можно установить изображение, например, в ImageView:
+                holder.ivBookImage.setImageBitmap(image); // Предполагаем, что у вас есть ImageView в макете
+            } else {
+                Log.e("BookAdapter", "Изображение для книги " + book.getTitle() + " отсутствует или пустое.");
+                // Вы можете установить изображение по умолчанию, если оно отсутствует
+                holder.ivBookImage.setImageResource(R.drawable.no_image);  // Убедитесь, что у вас есть default_book_image
+            }
         } else {
-            Glide.with(holder.itemView.getContext())
-                    .load(book.getImage())
-                    .into(holder.image);
+            Log.e("BookAdapter", "Книга с индексом " + position + " равна null");
         }
 
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onClick(book);
-            }
-        });
-
+        holder.itemView.setOnClickListener(v -> bookClickListener.onBookClick(book));
     }
+
+
 
     @Override
     public int getItemCount() {
-        return books.size();
+        return bookList != null ? bookList.size() : 0;
+    }
+
+    public void setList(List<Book> books) {
+        this.bookList = books;
+        notifyDataSetChanged();  // Обновление адаптера
+    }
+
+    public static class BookViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle, tvAuthor;
+        ImageView ivBookImage;
+
+        public BookViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tv_book_title);
+            tvAuthor = itemView.findViewById(R.id.tv_author);
+            ivBookImage = itemView.findViewById(R.id.iv_book); // ImageView для книги
+        }
+    }
+
+    public interface OnBookClickListener {
+        void onBookClick(Book book);
     }
 }

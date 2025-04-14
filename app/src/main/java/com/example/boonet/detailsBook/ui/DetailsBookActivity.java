@@ -67,12 +67,20 @@ public class DetailsBookActivity extends AppCompatActivity {
                             .load(book.getImage())
                             .into(ivBookImage);
                 }
+
                 tvBookTitle.setText(book.getTitle());
-                tvBookPrice.setText(String.format("₸%d", book.getPrice()));
                 tvBookAuthor.setText(book.getAuthor());
                 tvBookDescription.setText(book.getDescription());
+
+                // Отображаем информацию о подписке
+                if (book.isSubscription()) {
+                    tvBookPrice.setText("Доступен по подписке");
+                } else {
+                    tvBookPrice.setText("Бесплатно");
+                }
             }
         });
+
     }
 
     private void getBookByKey(String key, OnBookReceivedCallback callback) {

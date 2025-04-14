@@ -1,16 +1,20 @@
 package com.example.boonet.forgotPassword.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.boonet.R;
+import com.example.boonet.registration.ui.RegistrationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,18 +24,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText emailEditText;
     private Button resetPasswordButton;
 
+    private TextView login;
     private FirebaseAuth auth;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ForgotPasswordActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        auth = FirebaseAuth.getInstance();
-
-
-        emailEditText = findViewById(R.id.emailEditText);
-        resetPasswordButton = findViewById(R.id.resetPasswordButton);
+        init();
 
 
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +45,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 resetPassword();
             }
         });
+
+
     }
 
     private void resetPassword() {
@@ -65,5 +72,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void init(){
+        auth = FirebaseAuth.getInstance();
+
+        emailEditText = findViewById(R.id.emailEditText);
+        resetPasswordButton = findViewById(R.id.resetPasswordButton);
     }
 }

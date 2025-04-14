@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.boonet.MainActivity;
 import com.example.boonet.R;
+import com.example.boonet.forgotPassword.ui.ForgotPasswordActivity;
 import com.example.boonet.registration.ui.RegistrationActivity;
 import com.example.boonet.core.entities.Auth;
 import com.example.boonet.databinding.ActivityLoginBinding;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,11 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.loginButton.setOnClickListener(v -> {
             validateData();
+        });
+
+        binding.forgetPassword.setOnClickListener(v->{
+            Intent intent = ForgotPasswordActivity.newIntent(this);
+            startActivity(intent);
         });
     }
 
@@ -64,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 Auth.getDatabaseCurrentUser(user -> {
                     updateUserInFireBase(user);
 
-                    // Save user is logged in
+
                     SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("isLoggedIn", true);
