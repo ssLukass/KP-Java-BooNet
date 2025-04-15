@@ -1,7 +1,6 @@
 package com.example.boonet.home.adapters;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +41,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         if (book != null) {
             holder.tvTitle.setText(book.getTitle());
             holder.tvAuthor.setText(book.getAuthor());
-
             // Проверка на null или пустое изображение
-            if (book.getImage() != null && !book.getImage().isEmpty()) {
-                Bitmap image = Utils.decodeBase64ToImage(book.getImage());
+            if (book.getImageBase64() != null && !book.getImageBase64().isEmpty()) {
+                Bitmap image = Utils.decodeBase64ToImage(book.getImageBase64());
                 // Здесь можно установить изображение, например, в ImageView:
                 holder.ivBookImage.setImageBitmap(image); // Предполагаем, что у вас есть ImageView в макете
             } else {

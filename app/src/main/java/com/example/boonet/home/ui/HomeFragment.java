@@ -58,12 +58,12 @@ public class HomeFragment extends Fragment {
                     Book book = ds.getValue(Book.class);
                     if (book != null) {
                         book.setKey(ds.getKey()); // Устанавливаем ключ книги
-                        if (book.getImage() != null) {
+                        if (book.getImageBase64() != null) {
                             // Декодируем изображение из Base64 в Bitmap
-                            Bitmap bitmap = Utils.decodeBase64ToImage(book.getImage());
+                            Bitmap bitmap = Utils.decodeBase64ToImage(book.getImageBase64());
                             // Конвертируем обратно в Base64 после обработки, если необходимо
                             String base64Image = Utils.encodeImageToBase64(bitmap);
-                            book.setImage(base64Image); // Устанавливаем конвертированное изображение обратно
+                            book.setImageBase64(base64Image); // Устанавливаем конвертированное изображение обратно
                         }
                         bookList.add(book);
                     }

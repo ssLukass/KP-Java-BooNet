@@ -1,17 +1,12 @@
 package com.example.boonet.core.entities;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-
 import androidx.annotation.NonNull;
 
-import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Book implements Serializable, Cloneable {
-    private String image;  // Изображение в формате Base64
+    private String imageBase64;
     private String title;
     private String description;
     private String key;
@@ -22,8 +17,8 @@ public class Book implements Serializable, Cloneable {
 
     public Book() {}
 
-    public Book(String image, String title, String description, String key, String ownerUID, boolean subscription, long creationDate, String author) {
-        this.image = image;
+    public Book(String imageBase64, String title, String description, String key, String ownerUID, boolean subscription, long creationDate, String author) {
+        this.imageBase64 = imageBase64;
         this.title = title;
         this.description = description;
         this.key = key;
@@ -33,12 +28,12 @@ public class Book implements Serializable, Cloneable {
         this.author = author;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageBase64() {
+        return imageBase64;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 
     public String getTitle() {
@@ -116,6 +111,6 @@ public class Book implements Serializable, Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         super.clone();
-        return new Book(this.image, this.title, this.description, this.key, this.ownerUID, this.subscription, this.creationDate, this.author);
+        return new Book(this.imageBase64, this.title, this.description, this.key, this.ownerUID, this.subscription, this.creationDate, this.author);
     }
 }

@@ -48,9 +48,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductVie
             holder.tvPrice.setText("Бесплатно");
         }
 
-        if (book.getImage() != null && !book.getImage().isEmpty()) {
+        if (book.getImageBase64() != null && !book.getImageBase64().isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(book.getImage())
+                    .load(book.getImageBase64())
                     .into(holder.ivProductImage);
         } else {
             Glide.with(holder.itemView.getContext())

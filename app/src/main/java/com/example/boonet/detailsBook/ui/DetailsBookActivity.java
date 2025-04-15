@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,11 +59,11 @@ public class DetailsBookActivity extends AppCompatActivity {
 
         getBookByKey(bookKey, book -> {
             if (book != null) {
-                if (TextUtils.isEmpty(book.getImage())) {
+                if (TextUtils.isEmpty(book.getImageBase64())) {
                     Glide.with(this).load(R.drawable.no_image).into(ivBookImage);
                 } else {
                     Glide.with(this)
-                            .load(book.getImage())
+                            .load(book.getImageBase64())
                             .into(ivBookImage);
                 }
 

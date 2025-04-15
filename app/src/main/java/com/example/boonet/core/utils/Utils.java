@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 
 public class Utils {
 
-    // Метод для конвертации изображения в Base64 строку
+
     public static String encodeImageToBase64(Bitmap image) {
         if (image == null) {
             Log.e("askaskaskask", "Image is null");
@@ -26,7 +26,7 @@ public class Utils {
         return base64String;
     }
 
-    // Метод для конвертации строки Base64 обратно в Bitmap
+
     public static Bitmap decodeBase64ToImage(String base64Image) {
         if (base64Image == null || base64Image.isEmpty()) {
             Log.e("askaskaskask", "Base64 string is null or empty");
