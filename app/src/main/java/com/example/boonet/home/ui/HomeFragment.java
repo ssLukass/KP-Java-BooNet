@@ -3,8 +3,10 @@ package com.example.boonet.home.ui;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,72 +26,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    private static final String TAG = "HomeFragment";
+    private static final int SPAN_COUNT = 2;
+
     private RecyclerView rvBooks;
     private BookAdapter adapter;
-    private FirebaseDatabase db;
-    private DatabaseReference books;
+    private DatabaseReference booksRef;
+    private final List<Book> bookList = new ArrayList<>();
 
     public HomeFragment() {
-        super(R.layout.fragment_home);  // Указываем layout для фрагмента
+        super(R.layout.fragment_home);
     }
 
     @Override
-    public void onViewCreated(@NonNull android.view.View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Инициализация Firebase
-        db = FirebaseDatabase.getInstance("https://boonet-74b71-default-rtdb.europe-west1.firebasedatabase.app/");
-        books = db.getReference("books");
 
         // Инициализация RecyclerView
         rvBooks = view.findViewById(R.id.recyclerView);
-        rvBooks.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+        rvBooks.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, LinearLayoutManager.VERTICAL));
+
+        // Инициализация адаптера с пустым списком
+        adapter = new BookAdapter(bookList, this::onBookClicked);
+        rvBooks.setAdapter(adapter);
+
+        // Инициализация Firebase
+        FirebaseDatabase db = FirebaseDatabase.getInstance("https://boonet-74b71-default-rtdb.europe-west1.firebasedatabase.app/");
+        booksRef = db.getReference("books");
 
         // Загружаем книги из Firebase
-        getBookList();
+        loadBooks();
     }
 
-    private void getBookList() {
-        books.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void loadBooks() {
+        booksRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Book> bookList = new ArrayList<>();
+                bookList.clear();
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    Book book = ds.getValue(Book.class);
-                    if (book != null) {
-                        book.setKey(ds.getKey()); // Устанавливаем ключ книги
-                        if (book.getImageBase64() != null) {
-                            // Декодируем изображение из Base64 в Bitmap
-                            Bitmap bitmap = Utils.decodeBase64ToImage(book.getImageBase64());
-                            // Конвертируем обратно в Base64 после обработки, если необходимо
-                            String base64Image = Utils.encodeImageToBase64(bitmap);
-                            book.setImageBase64(base64Image); // Устанавливаем конвертированное изображение обратно
+                    try {
+                        Book book = ds.getValue(Book.class);
+                        if (book != null) {
+                            book.setKey(ds.getKey()); // Устанавливаем ключ книги
+
+                            // Обработка изображения
+                            String imageBase64 = ds.child("imageBase64").getValue(String.class);
+                            if (imageBase64 != null && !imageBase64.isEmpty()) {
+                                book.setImageBase64(imageBase64);
+                                // Декодируем и кодируем обратно для проверки валидности
+                                Bitmap bitmap = Utils.decodeBase64ToImage(imageBase64);
+                                if (bitmap != null) {
+                                    String processedBase64 = Utils.encodeImageToBase64(bitmap);
+                                    book.setImageBase64(processedBase64);
+                                }
+                            }
+                            bookList.add(book);
                         }
-                        bookList.add(book);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error parsing book data: " + e.getMessage(), e);
                     }
                 }
 
-                // Логирование для проверки количества книг
-                Log.d("HomeFragment", "Получены книги: " + bookList.size());
+                Log.d(TAG, "Loaded books: " + bookList.size());
 
-                // Проверяем, что список не пустой
                 if (bookList.isEmpty()) {
-                    Log.d("HomeFragment", "Нет данных для отображения.");
+                    Log.d(TAG, "Book list is empty");
+                    // Здесь можно показать сообщение об отсутствии книг
                 } else {
-                    // Создаем адаптер и передаем список книг и слушатель кликов
-                    adapter = new BookAdapter(bookList, book -> {
-                        // Ваш код для обработки клика по книге
-                    });
-
-                    // Устанавливаем адаптер в RecyclerView
-                    rvBooks.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("HomeFragment", "Ошибка при получении данных: " + error.getMessage());
+                Log.e(TAG, "Database error: " + error.getMessage(), error.toException());
+                // Здесь можно показать сообщение об ошибке
             }
         });
+    }
+
+    private void onBookClicked(Book book) {
+        // Обработка клика по книге
+        // Например, открытие детальной информации о книге
+        Log.d(TAG, "Book clicked: " + book.getTitle());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Очистка ссылок для предотвращения утечек памяти
+        rvBooks.setAdapter(null);
     }
 }

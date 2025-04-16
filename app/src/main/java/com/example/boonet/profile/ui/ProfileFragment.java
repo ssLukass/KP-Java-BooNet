@@ -51,7 +51,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ProfileFragment extends Fragment {
 
-    private FirebaseStorage storage;
+
     private ImageView ivAvatar;
     private FirebaseDatabase db;
     private FirebaseAuth auth;
@@ -194,7 +194,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void init(View view) {
-        storage = FirebaseStorage.getInstance();
         ivAvatar = view.findViewById(R.id.imageview_profile);
         db = FirebaseDatabase.getInstance("https://boonet-74b71-default-rtdb.europe-west1.firebasedatabase.app/");
         auth = FirebaseAuth.getInstance();

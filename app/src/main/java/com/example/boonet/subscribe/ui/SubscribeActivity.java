@@ -47,6 +47,7 @@ public class SubscribeActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener(v -> saveSubscription());
         btnCancel.setOnClickListener(v -> clearSubscription());
+
     }
 
     private void selectSubscription(CardView card, String period) {
