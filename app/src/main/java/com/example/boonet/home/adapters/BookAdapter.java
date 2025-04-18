@@ -2,87 +2,75 @@ package com.example.boonet.home.adapters;
 
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.boonet.R;
+import com.example.boonet.core.adapters.BaseAdapter;
 import com.example.boonet.core.entities.Book;
 import com.example.boonet.core.utils.Utils;
 
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
-    private List<Book> bookList;
-    private final OnBookClickListener bookClickListener;
+public class BookAdapter extends BaseAdapter<Book, BookAdapter.BookViewHolder, BookAdapter.OnBookClickListener> {
 
-    public BookAdapter(List<Book> bookList, OnBookClickListener bookClickListener) {
-        this.bookList = bookList;
-        this.bookClickListener = bookClickListener;
+    private static final String TAG = "BookAdapter";
+
+    public interface OnBookClickListener {
+        void onBookClick(Book book);
     }
 
-    @NonNull
+    public BookAdapter(List<Book> books, OnBookClickListener listener) {
+        super(books, listener);
+    }
+
     @Override
-    public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_item, parent, false);
+    protected int getLayoutId() {
+        return R.layout.book_item;
+    }
+
+    @Override
+    protected BookViewHolder createViewHolder(View view) {
         return new BookViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book book = bookList.get(position);
-
-        // Проверка наличия изображения у книги
-        if (book != null) {
-            holder.tvTitle.setText(book.getTitle());
-            holder.tvAuthor.setText(book.getAuthor());
-            // Проверка на null или пустое изображение
-            if (book.getImageBase64() != null && !book.getImageBase64().isEmpty()) {
-                Bitmap image = Utils.decodeBase64ToImage(book.getImageBase64());
-                // Здесь можно установить изображение, например, в ImageView:
-                holder.ivBookImage.setImageBitmap(image); // Предполагаем, что у вас есть ImageView в макете
-            } else {
-                Log.e("BookAdapter", "Изображение для книги " + book.getTitle() + " отсутствует или пустое.");
-                // Вы можете установить изображение по умолчанию, если оно отсутствует
-                holder.ivBookImage.setImageResource(R.drawable.no_image);  // Убедитесь, что у вас есть default_book_image
-            }
-        } else {
-            Log.e("BookAdapter", "Книга с индексом " + position + " равна null");
-        }
-
-        holder.itemView.setOnClickListener(v -> bookClickListener.onBookClick(book));
-    }
-
-
-
-    @Override
-    public int getItemCount() {
-        return bookList != null ? bookList.size() : 0;
-    }
-
-    public void setList(List<Book> books) {
-        this.bookList = books;
-        notifyDataSetChanged();  // Обновление адаптера
-    }
-
-    public static class BookViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvAuthor;
-        ImageView ivBookImage;
+    static class BookViewHolder extends BaseAdapter.BaseViewHolder<Book> {
+        private final TextView tvTitle;
+        private final TextView tvAuthor;
+        private final ImageView ivBookImage;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_book_title);
             tvAuthor = itemView.findViewById(R.id.tv_author);
-            ivBookImage = itemView.findViewById(R.id.iv_book); // ImageView для книги
+            ivBookImage = itemView.findViewById(R.id.iv_book);
         }
-    }
 
-    public interface OnBookClickListener {
-        void onBookClick(Book book);
+        @Override
+        public void bind(Book book, Object listener) {
+            if (book != null) {
+                tvTitle.setText(book.getTitle());
+                tvAuthor.setText(book.getAuthor());
+
+                if (book.getImageBase64() != null && !book.getImageBase64().isEmpty()) {
+                    Bitmap image = Utils.decodeBase64ToImage(book.getImageBase64());
+                    if (image != null) {
+                        ivBookImage.setImageBitmap(image);
+                    } else {
+                        Log.e(TAG, "Не удалось декодировать изображение для книги: " + book.getTitle());
+                        ivBookImage.setImageResource(R.drawable.no_image);
+                    }
+                } else {
+                    ivBookImage.setImageResource(R.drawable.no_image);
+                }
+
+                itemView.setOnClickListener(v -> {
+                    if (listener instanceof OnBookClickListener) {
+                        ((OnBookClickListener) listener).onBookClick(book);
+                    }
+                });
+            }
+        }
     }
 }

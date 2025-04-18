@@ -36,6 +36,7 @@ import com.example.boonet.R;
 import com.example.boonet.core.interfaces.OnDataUserReceivedCallback;
 import com.example.boonet.registration.entities.User;
 import com.example.boonet.subscribe.ui.SubscribeActivity;
+import com.example.boonet.subscribe.utils.SubscriptionManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,8 +57,9 @@ public class ProfileFragment extends Fragment {
     private FirebaseDatabase db;
     private FirebaseAuth auth;
     private TextView userName;
-    private TextView userEmail, tvAddCard, tvStatus;
+    private TextView userEmail, tvAddCard, tvStatus, subscriptionStatus;
     private User myUser;
+    private SubscriptionManager subscriptionManager;
 
     private final ActivityResultLauncher<Intent> openGalleryResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -102,17 +104,19 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         init(view);
+        
+        subscriptionManager = new SubscriptionManager(requireContext());
+        subscriptionStatus = view.findViewById(R.id.subscription_status);
+        
+        // Обновляем статус подписки
+        updateSubscriptionStatus();
 
         tvAddCard.setOnClickListener(v -> {
             Log.d("ProfileFragment", "tvAddCard нажата!");
-
             Intent intent = new Intent(requireContext(), AddCard.class);
             startActivity(intent);
-
             Log.d("ProfileFragment", "startActivity вызван!");
         });
-
-
 
         tvStatus.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), SubscribeActivity.class);
@@ -127,12 +131,13 @@ public class ProfileFragment extends Fragment {
         Button buttonExit = view.findViewById(R.id.button_exit);
         buttonExit.setOnClickListener(v -> logoutUser());
 
-
     }
 
-
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateSubscriptionStatus(); // Обновляем статус при возвращении на экран
+    }
 
    /* private void uploadImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -218,5 +223,15 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void updateSubscriptionStatus() {
+        if (subscriptionManager.isSuperReader() && subscriptionManager.hasActiveSubscription()) {
+            subscriptionStatus.setText("Статус: Super Reader ⭐");
+            subscriptionStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+        } else {
+            subscriptionStatus.setText("Статус: Обычный пользователь");
+            subscriptionStatus.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        }
     }
 }
