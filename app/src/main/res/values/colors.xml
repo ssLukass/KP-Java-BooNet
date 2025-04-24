@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_KP">#2195DE</color>
+    <color name="premium_color">#02FF14</color>
+    <color name="free_color">#1335E9</color>
 </resources>

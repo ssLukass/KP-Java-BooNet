@@ -110,28 +110,7 @@
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardLifetime"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@id/cardYearly"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Навсегда - 19990₸"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_gravity="center"/>
-    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btnSave"
@@ -140,7 +119,7 @@
         android:text="Сохранить"
         android:padding="20dp"
         android:backgroundTint="@color/primary_KP"
-        app:layout_constraintTop_toBottomOf="@id/cardLifetime"
+        app:layout_constraintTop_toBottomOf="@id/cardYearly"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"

@@ -2,16 +2,10 @@ package com.example.boonet.core.utils;
 
 import com.example.boonet.core.entities.Book;
 import java.util.Comparator;
+import com.example.boonet.core.utils.SortType;
 
 public class BookSortingStrategy<T extends Book> {
-    
-    public enum SortType {
-        TITLE,
-        AUTHOR,
-        SUBSCRIPTION,
-        DATE
-    }
-    
+
     public Comparator<T> getSortingComparator(SortType sortType) {
         switch (sortType) {
             case TITLE:

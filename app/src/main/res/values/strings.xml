@@ -40,6 +40,7 @@
     <string name="Price">Подписка</string>
     <string name="Name_Book">Название книги</string>
     <string name="Description_Book">Описание книги</string>
+    <string name="Subscription_Status">Состояние подписки</string>
 
     <!-- Profile -->
     <string name="Name">Имя пользователя</string>
@@ -135,4 +136,9 @@
     <string name="Today">Сегодня</string>
     <string name="Its_Still_Empty_Here">Здесь пока пусто.</string>
     <string name="You_dont_Have_Anything_In_Your_Favorites.">У вас нет ничего в Избранном.</string>
+
+
+
+    <string name="free">Бесплатно</string>
+    <string name="premium">По подписке</string>
 </resources>

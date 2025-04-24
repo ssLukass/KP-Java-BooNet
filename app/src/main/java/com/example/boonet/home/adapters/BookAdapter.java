@@ -39,12 +39,14 @@ public class BookAdapter extends BaseAdapter<Book, BookAdapter.BookViewHolder, B
         private final TextView tvTitle;
         private final TextView tvAuthor;
         private final ImageView ivBookImage;
+        private final TextView tvSubscriptionStatus;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_book_title);
             tvAuthor = itemView.findViewById(R.id.tv_author);
             ivBookImage = itemView.findViewById(R.id.iv_book);
+            tvSubscriptionStatus = itemView.findViewById(R.id.tv_subscription_status);
         }
 
         @Override
@@ -52,6 +54,13 @@ public class BookAdapter extends BaseAdapter<Book, BookAdapter.BookViewHolder, B
             if (book != null) {
                 tvTitle.setText(book.getTitle());
                 tvAuthor.setText(book.getAuthor());
+
+                // Обрабатываем состояние подписки
+                if (book.isSubscription()) {
+                    tvSubscriptionStatus.setText("Подписка");
+                } else {
+                    tvSubscriptionStatus.setText("Бесплатно");
+                }
 
                 if (book.getImageBase64() != null && !book.getImageBase64().isEmpty()) {
                     Bitmap image = Utils.decodeBase64ToImage(book.getImageBase64());

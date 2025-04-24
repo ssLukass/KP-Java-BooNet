@@ -19,7 +19,6 @@ import com.example.boonet.registration.entities.UserType;
 import com.example.boonet.core.entities.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static final String TAG = "SplashScreen";

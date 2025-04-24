@@ -3,13 +3,17 @@ package com.example.boonet.registration.entities;
 
 import org.jetbrains.annotations.NotNull;
 
-public class User implements Cloneable {
+import java.util.Objects;
+
+public class User implements Cloneable, Comparable<User> {
     private String userName;
     private String userEmail;
     private String key;
     private String UID;
     private String avatar;
     private UserType userType = UserType.READER;
+    public User() {
+    }
 
     public User(String userName, String userEmail, String key, String UID, String avatar, UserType userType) {
         this.userName = userName;
@@ -30,8 +34,6 @@ public class User implements Cloneable {
         this.UID = UID;
     }
 
-    public User() {
-    }
 
     public String getUserName() {
         return userName;
@@ -83,8 +85,43 @@ public class User implements Cloneable {
 
     @NotNull
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        super.clone();
-        return new User(this.userName);
+    public User clone() {
+        try {
+            User cloned = (User) super.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("Клонирование не поддерживается", e);
+        }
+    }
+
+    @Override
+    public int compareTo(@NotNull User other) {
+        return this.userName.compareToIgnoreCase(other.userName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(UID, user.UID) &&
+                Objects.equals(userEmail, user.userEmail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(UID, userEmail);
+    }
+
+    /* Для удобного вывода */
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + userName + '\'' +
+                ", email='" + userEmail + '\'' +
+                ", type=" + userType +
+                '}';
+
+
     }
 }

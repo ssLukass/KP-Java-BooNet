@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.boonet.R;
+import com.example.boonet.core.entities.Book;
 import com.example.boonet.detailsBook.ui.DetailsBookActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -126,13 +127,14 @@ public class AddBookActivity extends AppCompatActivity {
 
         // Сбор данных о книге
         Map<String, Object> bookData = new HashMap<>();
-        bookData.put("name", name);
+        bookData.put("title", name);  // Используем title вместо name для соответствия классу Book
         bookData.put("description", description);
         bookData.put("author", author);
-        bookData.put("isSubscribed", isSubscribed);
+        bookData.put("subscription", isSubscribed);  // Изменили isSubscribed на subscription
         if (encodedImage != null) {
             bookData.put("imageBase64", encodedImage);
         }
+
 
         // Сохранение книги в Firebase
         booksRef.setValue(bookData).addOnCompleteListener(task -> {

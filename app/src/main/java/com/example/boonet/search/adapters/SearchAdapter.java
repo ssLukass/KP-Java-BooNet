@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import com.example.boonet.R;
 import com.example.boonet.core.adapters.BaseAdapter;
 import com.example.boonet.core.entities.Book;
@@ -36,28 +39,35 @@ public class SearchAdapter extends BaseAdapter<Book, SearchAdapter.SearchViewHol
     }
 
     static class SearchViewHolder extends BaseAdapter.BaseViewHolder<Book> {
-        private final TextView tvTitle;
-        private final TextView tvPrice;
         private final ImageView ivProductImage;
+        private final TextView tvTitle;
+        private final TextView tvAuthor;
+        private final TextView tvSubscription;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvProductTitle);
-            tvPrice = itemView.findViewById(R.id.tvProductPrice);
             ivProductImage = itemView.findViewById(R.id.ivProductImage);
+            tvTitle = itemView.findViewById(R.id.tvProductTitle);
+            tvAuthor = itemView.findViewById(R.id.tvAuthor);
+            tvSubscription = itemView.findViewById(R.id.tvSubscription);
         }
 
         @Override
         public void bind(Book book, Object listener) {
             if (book != null) {
                 tvTitle.setText(book.getTitle());
-                
+                tvAuthor.setText(book.getAuthor() != null ? book.getAuthor() : "Автор не указан");
+
+                // Установка статуса подписки
                 if (book.isSubscription()) {
-                    tvPrice.setText("Доступен по подписке");
+                    tvSubscription.setText("По подписке");
+                    tvSubscription.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.premium_color));
                 } else {
-                    tvPrice.setText("Бесплатно");
+                    tvSubscription.setText("Бесплатно");
+                    tvSubscription.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.free_color));
                 }
 
+                // Обработка изображения
                 if (book.getImageBase64() != null && !book.getImageBase64().isEmpty()) {
                     Bitmap image = Utils.decodeBase64ToImage(book.getImageBase64());
                     if (image != null) {

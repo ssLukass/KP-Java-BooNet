@@ -15,10 +15,11 @@ public class Book implements Serializable, Cloneable {
     private long creationDate;
     private String author;
 
+
+
     public Book() {}
 
-    public Book(String imageBase64, String title, String description, String key, String ownerUID, boolean subscription, long creationDate, String author) {
-        this.imageBase64 = imageBase64;
+    public Book( String title,String imageBase64, String description, String key, String ownerUID, boolean subscription, long creationDate, String author) {
         this.title = title;
         this.description = description;
         this.key = key;

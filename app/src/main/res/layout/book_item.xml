@@ -46,6 +46,16 @@
                 android:text="@string/Author"
                 android:textSize="15sp"
                 android:textStyle="italic" />
+
+            <!-- Добавляем TextView для состояния подписки -->
+            <TextView
+                android:id="@+id/tv_subscription_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Subscription_Status"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp" />
+
         </LinearLayout>
     </FrameLayout>
 </androidx.cardview.widget.CardView>

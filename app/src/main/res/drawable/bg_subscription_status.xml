@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="4dp"/>
+    <solid android:color="#FF4081"/> <!-- Цвет для платного контента -->
+</shape>

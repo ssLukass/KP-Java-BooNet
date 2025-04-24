@@ -117,7 +117,10 @@ public class SearchFragment extends Fragment {
                         Book book = ds.getValue(Book.class);
                         if (book != null) {
                             book.setKey(ds.getKey());
-                            
+                            Boolean isSubscribed = ds.child("subscription").getValue(Boolean.class);
+                            if (isSubscribed != null) {
+                                book.setSubscription(isSubscribed);
+                            }
                             // Обработка изображения
                             String imageBase64 = ds.child("imageBase64").getValue(String.class);
                             if (imageBase64 != null && !imageBase64.isEmpty()) {
